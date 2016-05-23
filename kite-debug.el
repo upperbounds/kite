@@ -146,11 +146,11 @@ correspond to one.")
       (goto-char (point-max)))))
 
 (defun kite--Debugger-resumed (websocket-url packet)
-  (kite-send "Debugger.setOverlayMessage")
+  (kite-send "Page.setOverlayMessage")
   (message "Execution resumed"))
 
 (defun kite--Debugger-paused (websocket-url packet)
-  (kite-send "Debugger.setOverlayMessage"
+  (kite-send "Page.setOverlayMessage"
              :params
              (list :message "Paused in kite debugger"))
 

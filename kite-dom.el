@@ -458,7 +458,7 @@ line under mouse and the corresponding DOM node in the browser."
              (list
               :nodeId node-id
               :highlightConfig
-              `((showInfo . nil)
+              `((showInfo . t)
                 (contentColor . ,(kite--rgba 255 0 0 0.5))
                 (paddingColor . ,(kite--rgba 0 255 0 0.5))
                 (borderColor . ,(kite--rgba 0 0 255 0.5))
@@ -488,12 +488,7 @@ line under mouse and the corresponding DOM node in the browser."
    "CSS.enable"
    :success-function
    (lambda (result)
-     (kite-send
-      "CSS.getAllStyleSheets"
-      :success-function
-      (lambda (result)
-        (kite--log "CSS.getAllStyleSheets got result" result)
-        (run-hooks 'kite-async-init-hook))))))
+     (run-hooks 'kite-async-init-hook))))
 
 (defun kite--dom-insert-document (root-plist)
   "Insert the whole HTML document into the DOM buffer, given the
@@ -1316,7 +1311,7 @@ FIXME: not yet implemented."
              :params
              (list :nodeId (get-char-property (point) 'kite-node-id)
                    :highlightConfig
-                   `((showInfo . nil)
+                   `((showInfo . t)
                      (contentColor . ,(kite--rgba 255 0 0 0.5))
                      (paddingColor . ,(kite--rgba 0 255 0 0.5))
                      (borderColor . ,(kite--rgba 0 0 255 0.5))
@@ -1340,11 +1335,11 @@ selects an element, `kite--dom-Inspector-inspect' is invoked
 which in turn invokes `kite-dom-goto-node' to move point to the
 selected element in the DOM view."
   (interactive)
-  (kite-send "DOM.setInspectModeEnabled"
+  (kite-send "DOM.setInspectMode"
              :params
-             (list :enabled t
+             (list :mode "showLayoutEditor"
                    :highlightConfig
-                   `((showInfo . nil)
+                   `((showInfo . t)
                      (contentColor . ,(kite--rgba 255 0 0 0.5))
                      (paddingColor . ,(kite--rgba 0 255 0 0.5))
                      (borderColor . ,(kite--rgba 0 0 255 0.5))
