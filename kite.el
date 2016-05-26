@@ -220,26 +220,14 @@ and :title."
 
     ;; Query capabilities
 
-    (kite-send "Page.canOverrideDeviceMetrics"
-               :success-function
-               (lambda (result)
-                 (setf (kite-session-can-override-device-metrics
-                        kite-session)
-                       (eq t (plist-get result :result)))))
+    (setf (kite-session-can-override-device-metrics
+           kite-session) t)
 
-    (kite-send "Page.canOverrideGeolocation"
-               :success-function
-               (lambda (result)
-                 (setf (kite-session-can-override-geo-location
-                        kite-session)
-                       (eq t (plist-get result :result)))))
+    (setf (kite-session-can-override-geo-location
+           kite-session) t)
 
-    (kite-send "Page.canOverrideDeviceOrientation"
-               :success-function
-               (lambda (result)
-                 (setf (kite-session-can-override-device-orientation
-                        kite-session)
-                       (eq t (plist-get result :result)))))
+    (setf (kite-session-can-override-device-orientation
+           kite-session) t)
 
     (kite-send "Network.canClearBrowserCache"
                :success-function
@@ -779,12 +767,12 @@ ENABLEDP as the only argument."
 
 (defalias 'kite--set-emulate-touch-events
   (apply-partially 'kite--set-remote-setting
-                   "Page.setTouchEmulationEnabled"
+                   "Emulation.setTouchEmulationEnabled"
                    :enabled))
 
 (defalias 'kite--set-show-paint-rects
   (apply-partially 'kite--set-remote-setting
-                   "Page.setShowPaintRects"
+                   "Rendering.setShowPaintRects"
                    :result))
 
 (defalias 'kite--set-cache-disabled
